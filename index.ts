@@ -28,12 +28,14 @@ class Game implements IGame{
 class Tile implements ITile{
   unit:number = 50;
   image:HTMLImageElement;
-  x:number=0;
-  y:number=0;
+  x:number;
+  y:number;
   w:number;
   h:number;
   constructor(
-    image:string
+    image:string,
+    x:number,
+    y:number
   ) {
     this.image = new Image();
     this.image.src = image;
@@ -41,13 +43,14 @@ class Tile implements ITile{
     this.image.width = this.unit;
     this.w = this.unit;
     this.h = this.unit;
+    this.x = x;
+    this.y = y;
     this.image.addEventListener('load', () => {
       this.drawTile();
     });
   }
 
   drawTile() {
-    this.clearTile();
     game.context.drawImage(this.image, this.x, this.y, this.w, this.h);
   }
 
@@ -57,6 +60,7 @@ class Tile implements ITile{
 
   moveUp() {
     if (this.canMoveImage(this.image, 'up')) {
+      this.clearTile();
       this.y -= this.unit;
       this.drawTile();
     }
@@ -64,6 +68,7 @@ class Tile implements ITile{
 
   moveDown() {
     if (this.canMoveImage(this.image, 'down')) {
+      this.clearTile();
       this.y += this.unit;
       this.drawTile();
     }
@@ -71,6 +76,7 @@ class Tile implements ITile{
 
   moveLeft() {
     if (this.canMoveImage(this.image, 'left')) {
+      this.clearTile();
       this.x -= this.unit;
       this.drawTile();
     }
@@ -78,6 +84,7 @@ class Tile implements ITile{
 
   moveRight() {
     if (this.canMoveImage(this.image, 'right')) {
+      this.clearTile();
       this.x += this.unit;
       this.drawTile();
     }
@@ -100,17 +107,23 @@ class Tile implements ITile{
 class Zombie extends Tile{
   public image:HTMLImageElement
   constructor(
-    image:string
+    image:string,
+    x:number,
+    y:number
   ) {
-    super(image);
+    super(image, x, y);
+    console.log(this);
   }
 }
 
 class Player extends Tile{
   constructor(
-    image:string
+    image:string,
+    x:number,
+    y:number
   ) {
-    super(image);
+    super(image, x, y);
+    console.log(this);
     this.createControls();
   }
 
@@ -130,13 +143,14 @@ class Player extends Tile{
           this.moveRight();
           break;
       }
-    }, true);
+    }, false);
   }
 }
 
+const unit = 50;
 let game:IGame = new Game();
 let zombies:Array<ITile> = [
-  new Zombie('zombie.gif'),
-  new Zombie('zombie.gif')
+  new Zombie('zombie.gif', unit, unit),
+  new Zombie('zombie.gif', unit*2, unit*2)
 ];
-let player:ITile = new Player('player.png');
+let player:ITile = new Player('player.png', 0, 0);
