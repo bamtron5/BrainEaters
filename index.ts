@@ -181,34 +181,34 @@ const unit = 50;
 let game:IGame = new Game();
 
 let zombies:Array<ITile> = [
-  new Zombie('zombie.gif', unit, unit),
-  new Zombie('zombie.gif', unit, 0)
+  new Zombie('assets/zombie.gif', unit, unit),
+  new Zombie('assets/zombie.gif', unit, 0)
 ];
 
 let walls:Array<ITile> = [
-  new Wall('bricks.jpg', unit, unit*2),
-  new Wall('bricks.jpg', unit, unit*3),
-  new Wall('bricks.jpg', unit, unit*4),
-  new Wall('bricks.jpg', unit, unit*5),
-  new Wall('bricks.jpg', unit, unit*6),
-  new Wall('bricks.jpg', unit, unit*7),
-  new Wall('bricks.jpg', unit, unit*8),
-  new Wall('bricks.jpg', unit*2, unit*8),
-  new Wall('bricks.jpg', unit*3, unit*8),
-  new Wall('bricks.jpg', unit*4, unit*8),
-  new Wall('bricks.jpg', unit*5, unit*8),
-  new Wall('bricks.jpg', unit*6, unit*8),
-  new Wall('bricks.jpg', unit*7, unit*8),
-  new Wall('bricks.jpg', unit*8, unit*8),
-  new Wall('bricks.jpg', unit*8, unit*7),
-  new Wall('bricks.jpg', unit*8, unit*6),
-  new Wall('bricks.jpg', unit*8, unit*5),
-  new Wall('bricks.jpg', unit*8, unit*4),
-  new Wall('bricks.jpg', unit*8, unit*3),
-  new Wall('bricks.jpg', unit*8, unit*2),
-  new Wall('bricks.jpg', unit*8, unit*1),
-  new Wall('bricks.jpg', unit*8, unit),
-  new Wall('bricks.jpg', unit*8, 0)
+  new Wall('assets/bricks.jpg', unit, unit*2),
+  new Wall('assets/bricks.jpg', unit, unit*3),
+  new Wall('assets/bricks.jpg', unit, unit*4),
+  new Wall('assets/bricks.jpg', unit, unit*5),
+  new Wall('assets/bricks.jpg', unit, unit*6),
+  new Wall('assets/bricks.jpg', unit, unit*7),
+  new Wall('assets/bricks.jpg', unit, unit*8),
+  new Wall('assets/bricks.jpg', unit*2, unit*8),
+  new Wall('assets/bricks.jpg', unit*3, unit*8),
+  new Wall('assets/bricks.jpg', unit*4, unit*8),
+  new Wall('assets/bricks.jpg', unit*5, unit*8),
+  new Wall('assets/bricks.jpg', unit*6, unit*8),
+  new Wall('assets/bricks.jpg', unit*7, unit*8),
+  new Wall('assets/bricks.jpg', unit*8, unit*8),
+  new Wall('assets/bricks.jpg', unit*8, unit*7),
+  new Wall('assets/bricks.jpg', unit*8, unit*6),
+  new Wall('assets/bricks.jpg', unit*8, unit*5),
+  new Wall('assets/bricks.jpg', unit*8, unit*4),
+  new Wall('assets/bricks.jpg', unit*8, unit*3),
+  new Wall('assets/bricks.jpg', unit*8, unit*2),
+  new Wall('assets/bricks.jpg', unit*8, unit*1),
+  new Wall('assets/bricks.jpg', unit*8, unit),
+  new Wall('assets/bricks.jpg', unit*8, 0)
 ];
 
-let player:ITile = new Player('player.png', 0, 0);
+let player:ITile = new Player('assets/player.png', 0, 0);
