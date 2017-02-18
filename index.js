@@ -7,7 +7,16 @@ var Game = (function () {
     function Game() {
         this.c = document.getElementById('myCanvas');
         this.context = this.c.getContext('2d');
+        console.log(this);
+        this.createHashTable();
     }
+    Game.prototype.createHashTable = function () {
+        var hMap = this.c.height / unit;
+        var wMap = this.c.width / unit;
+        var volume = hMap * wMap;
+        for (var i = 0; i < volume; i++) {
+        }
+    };
     return Game;
 }());
 var Tile = (function () {
@@ -77,9 +86,7 @@ var Tile = (function () {
 var Zombie = (function (_super) {
     __extends(Zombie, _super);
     function Zombie(image, x, y) {
-        var _this = _super.call(this, image, x, y) || this;
-        console.log(_this);
-        return _this;
+        return _super.call(this, image, x, y) || this;
     }
     return Zombie;
 }(Tile));
@@ -87,7 +94,6 @@ var Player = (function (_super) {
     __extends(Player, _super);
     function Player(image, x, y) {
         var _this = _super.call(this, image, x, y) || this;
-        console.log(_this);
         _this.createControls();
         return _this;
     }
@@ -112,11 +118,43 @@ var Player = (function (_super) {
     };
     return Player;
 }(Tile));
+var Wall = (function (_super) {
+    __extends(Wall, _super);
+    function Wall(image, x, y) {
+        return _super.call(this, image, x, y) || this;
+    }
+    return Wall;
+}(Tile));
 var unit = 50;
 var game = new Game();
 var zombies = [
     new Zombie('zombie.gif', unit, unit),
-    new Zombie('zombie.gif', unit * 2, unit * 2)
+    new Zombie('zombie.gif', unit, 0)
+];
+var walls = [
+    new Wall('bricks.jpg', unit, unit * 2),
+    new Wall('bricks.jpg', unit, unit * 3),
+    new Wall('bricks.jpg', unit, unit * 4),
+    new Wall('bricks.jpg', unit, unit * 5),
+    new Wall('bricks.jpg', unit, unit * 6),
+    new Wall('bricks.jpg', unit, unit * 7),
+    new Wall('bricks.jpg', unit, unit * 8),
+    new Wall('bricks.jpg', unit * 2, unit * 8),
+    new Wall('bricks.jpg', unit * 3, unit * 8),
+    new Wall('bricks.jpg', unit * 4, unit * 8),
+    new Wall('bricks.jpg', unit * 5, unit * 8),
+    new Wall('bricks.jpg', unit * 6, unit * 8),
+    new Wall('bricks.jpg', unit * 7, unit * 8),
+    new Wall('bricks.jpg', unit * 8, unit * 8),
+    new Wall('bricks.jpg', unit * 8, unit * 7),
+    new Wall('bricks.jpg', unit * 8, unit * 6),
+    new Wall('bricks.jpg', unit * 8, unit * 5),
+    new Wall('bricks.jpg', unit * 8, unit * 4),
+    new Wall('bricks.jpg', unit * 8, unit * 3),
+    new Wall('bricks.jpg', unit * 8, unit * 2),
+    new Wall('bricks.jpg', unit * 8, unit * 1),
+    new Wall('bricks.jpg', unit * 8, unit),
+    new Wall('bricks.jpg', unit * 8, 0)
 ];
 var player = new Player('player.png', 0, 0);
 //# sourceMappingURL=index.js.map

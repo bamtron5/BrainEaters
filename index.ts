@@ -5,6 +5,7 @@
 //TODO logic for zombie wandering
 //TODO end game on zombie contact
 //TODO OPTIONAL retrieving tincutures or cures or vaccines
+///<reference types="es6-shim" />
 
 interface IGame {
   c:HTMLCanvasElement;
@@ -20,12 +21,32 @@ interface ITile {
   h:number
 }
 
-class Game implements IGame{
-  c:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('myCanvas');
-  context:CanvasRenderingContext2D = this.c.getContext('2d');
+interface HashTable<T> {
+  [key:string]: ITile
 }
 
-class Tile implements ITile{
+class Game implements IGame {
+  c:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('myCanvas');
+  context:CanvasRenderingContext2D = this.c.getContext('2d');
+  // hashTable:Map<number,ITile> = new Map();
+  constructor() {
+    console.log(this);
+    this.createHashTable();
+  }
+
+  createHashTable() {
+    let hMap = this.c.height / unit;
+    let wMap = this.c.width / unit;
+    let volume = hMap * wMap;
+
+    for(let i = 0; i < volume; i++){
+      // this.hashTable
+    }
+    // console.log(volume);
+  }
+}
+
+class Tile implements ITile {
   unit:number = 50;
   image:HTMLImageElement;
   x:number;
@@ -104,7 +125,7 @@ class Tile implements ITile{
   }
 }
 
-class Zombie extends Tile{
+class Zombie extends Tile {
   public image:HTMLImageElement
   constructor(
     image:string,
@@ -112,18 +133,16 @@ class Zombie extends Tile{
     y:number
   ) {
     super(image, x, y);
-    console.log(this);
   }
 }
 
-class Player extends Tile{
+class Player extends Tile {
   constructor(
     image:string,
     x:number,
     y:number
   ) {
     super(image, x, y);
-    console.log(this);
     this.createControls();
   }
 
@@ -147,10 +166,49 @@ class Player extends Tile{
   }
 }
 
+class Wall extends Tile {
+  constructor(
+    image:string,
+    x:number,
+    y:number
+  ) {
+    super(image, x, y);
+  }
+}
+
 const unit = 50;
+
 let game:IGame = new Game();
+
 let zombies:Array<ITile> = [
   new Zombie('zombie.gif', unit, unit),
-  new Zombie('zombie.gif', unit*2, unit*2)
+  new Zombie('zombie.gif', unit, 0)
 ];
+
+let walls:Array<ITile> = [
+  new Wall('bricks.jpg', unit, unit*2),
+  new Wall('bricks.jpg', unit, unit*3),
+  new Wall('bricks.jpg', unit, unit*4),
+  new Wall('bricks.jpg', unit, unit*5),
+  new Wall('bricks.jpg', unit, unit*6),
+  new Wall('bricks.jpg', unit, unit*7),
+  new Wall('bricks.jpg', unit, unit*8),
+  new Wall('bricks.jpg', unit*2, unit*8),
+  new Wall('bricks.jpg', unit*3, unit*8),
+  new Wall('bricks.jpg', unit*4, unit*8),
+  new Wall('bricks.jpg', unit*5, unit*8),
+  new Wall('bricks.jpg', unit*6, unit*8),
+  new Wall('bricks.jpg', unit*7, unit*8),
+  new Wall('bricks.jpg', unit*8, unit*8),
+  new Wall('bricks.jpg', unit*8, unit*7),
+  new Wall('bricks.jpg', unit*8, unit*6),
+  new Wall('bricks.jpg', unit*8, unit*5),
+  new Wall('bricks.jpg', unit*8, unit*4),
+  new Wall('bricks.jpg', unit*8, unit*3),
+  new Wall('bricks.jpg', unit*8, unit*2),
+  new Wall('bricks.jpg', unit*8, unit*1),
+  new Wall('bricks.jpg', unit*8, unit),
+  new Wall('bricks.jpg', unit*8, 0)
+];
+
 let player:ITile = new Player('player.png', 0, 0);

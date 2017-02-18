@@ -1,0 +1,23 @@
+{
+  "name": "brain-eaters",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamtron5/BrainEaters.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bamtron5/BrainEaters/issues"
+  },
+  "homepage": "https://github.com/bamtron5/BrainEaters#readme",
+  "dependencies": {
+    "@types/es6-shim": "^0.31.32",
+    "es6-shim": "^0.35.3"
+  }
+}
