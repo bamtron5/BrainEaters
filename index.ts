@@ -7,7 +7,6 @@
 //TODO OPTIONAL retrieving tinctures or cures or vaccines
 ///<reference types="es6-shim" />
 
-
 interface IPoint {
   x:number;
   y:number;
@@ -155,7 +154,6 @@ class Player extends Tile {
 
   createControls() {
     document.addEventListener('keydown', (event) => {
-      console.log(event.key);
       switch (event.key) {
         case 'ArrowUp':
           this.moveUp();
