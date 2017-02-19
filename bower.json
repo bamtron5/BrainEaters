@@ -1,0 +1,17 @@
+{
+  "name": "brain-eaters",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "bamtron5 <brandon@brandonam.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/bamtron5/BrainEaters",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,15 +1,23 @@
 //TODO measuring units in a grid
 //TODO generate random maze
-//TODO detect boundaries for user
+//TODO detect boundaries for user √
 //TODO detect boundaries for zombies
 //TODO logic for zombie wandering
 //TODO end game on zombie contact
-//TODO OPTIONAL retrieving tincutures or cures or vaccines
+//TODO OPTIONAL retrieving tinctures or cures or vaccines
 ///<reference types="es6-shim" />
+
+
+interface IPoint {
+  x:number;
+  y:number;
+}
 
 interface IGame {
   c:HTMLCanvasElement;
   context:CanvasRenderingContext2D;
+  area:number;
+  hashTable:Map<{},{}>;
 }
 
 interface ITile {
@@ -18,31 +26,31 @@ interface ITile {
   x:number,
   y:number,
   w:number,
-  h:number
+  h:number,
+  pointer:number,
+  type:string
 }
 
-interface HashTable<T> {
-  [key:string]: ITile
+class Point implements IPoint{
+  x:number;
+  y:number;
+  constructor(
+    x:number,
+    y:number
+  ) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
 class Game implements IGame {
   c:HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('myCanvas');
   context:CanvasRenderingContext2D = this.c.getContext('2d');
-  // hashTable:Map<number,ITile> = new Map();
+  hashTable:Map<{},{}>;
+  area:number;
   constructor() {
-    console.log(this);
-    this.createHashTable();
-  }
-
-  createHashTable() {
-    let hMap = this.c.height / unit;
-    let wMap = this.c.width / unit;
-    let volume = hMap * wMap;
-
-    for(let i = 0; i < volume; i++){
-      // this.hashTable
-    }
-    // console.log(volume);
+    this.area = (this.c.height / unit) * (this.c.width / unit);
+    this.hashTable = new Map();
   }
 }
 
@@ -53,6 +61,8 @@ class Tile implements ITile {
   y:number;
   w:number;
   h:number;
+  pointer:number;
+  type:string;
   constructor(
     image:string,
     x:number,
@@ -72,10 +82,12 @@ class Tile implements ITile {
   }
 
   drawTile() {
+    game.hashTable.set(JSON.stringify(new Point(this.x, this.y)), this);
     game.context.drawImage(this.image, this.x, this.y, this.w, this.h);
   }
 
   clearTile() {
+    game.hashTable.delete(JSON.stringify(new Point(this.x, this.y)));
     game.context.clearRect(this.x, this.y, this.w, this.h);
   }
 
@@ -114,29 +126,24 @@ class Tile implements ITile {
   canMoveImage(image:HTMLImageElement, direction:string) {
     switch(direction) {
       case 'up':
-        return this.y > 0;
+        let destUp = JSON.stringify(new Point(this.x, this.y - this.unit));
+        return !game.hashTable.get(destUp) ? this.y > 0 : false;
       case 'down':
-        return (this.y + this.h) < game.c.height;
+        let destDown = JSON.stringify(new Point(this.x, this.y + this.unit));
+        return !game.hashTable.get(destDown) ? (this.y + this.h) < game.c.height : false;
       case 'left':
-        return this.x > 0;
+        let destLeft = JSON.stringify(new Point(this.x - this.unit, this.y));
+        return !game.hashTable.get(destLeft) ? this.x > 0 : false;
       case 'right':
-        return (this.x + this.w) < game.c.width;
+        let destRight = JSON.stringify(new Point(this.x + this.unit, this.y));
+        return !game.hashTable.get(destRight) ? (this.x + this.w) < game.c.width : false;
     }
   }
 }
 
-class Zombie extends Tile {
-  public image:HTMLImageElement
-  constructor(
-    image:string,
-    x:number,
-    y:number
-  ) {
-    super(image, x, y);
-  }
-}
 
 class Player extends Tile {
+  type:string = 'Player';
   constructor(
     image:string,
     x:number,
@@ -148,6 +155,7 @@ class Player extends Tile {
 
   createControls() {
     document.addEventListener('keydown', (event) => {
+      console.log(event.key);
       switch (event.key) {
         case 'ArrowUp':
           this.moveUp();
@@ -167,13 +175,10 @@ class Player extends Tile {
 }
 
 class Wall extends Tile {
-  constructor(
-    image:string,
-    x:number,
-    y:number
-  ) {
-    super(image, x, y);
-  }
+  type:string = 'Wall';
+}
+class Zombie extends Tile {
+  type:string = 'Zombie';
 }
 
 const unit = 50;

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/bamtron5/BrainEaters#readme",
   "dependencies": {
     "@types/es6-shim": "^0.31.32",
-    "es6-shim": "^0.35.3"
+    "es6-shim": "^0.35.3",
+    "excel-column-name": "^1.0.0"
   }
 }
